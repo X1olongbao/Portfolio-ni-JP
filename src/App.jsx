@@ -1,7 +1,8 @@
-import About from './components/about.jsx'
-import Contacts from './components/contacts.jsx' 
-import Footer from './components/footer.jsx'
-import Navbar from './components/navbar.jsx'
+import About from './components/About/about.jsx'
+import Contacts from './components/Contacts/contacts.jsx'
+import Footer from './components/Footer/footer.jsx'
+import Navbar from './components/Navbar/navbar.jsx'
+import Card from './components/Card/Card.jsx'
 import './App.css'
 
 function App() {
@@ -11,7 +12,6 @@ function App() {
       <About />
       <Contacts />
       <Footer />
-      
     </div>
   )
 }
