@@ -1,6 +1,7 @@
 import "./about.css";
 import myPhoto from "../../assets/hahaha.png"; 
 import Card from "../Card/Card";
+import { cardData } from '../data';
 
 function About() {
   return (
@@ -14,7 +15,12 @@ function About() {
             <p>Frontend developer in the making — learning React, Tailwind.</p>
           </div>
         </div>
-        <Card />
+        <Card 
+          skillsTitle={cardData.skillsTitle}
+          aboutMeTitle={cardData.aboutMeTitle}
+          skills={cardData.skills}
+          aboutMe={cardData.aboutMe}
+          />
       </div>
     </section>
   );

@@ -1,30 +1,30 @@
-import './Card.css'
+import './Card.css';
 
-function Card() {
+function Card(props) {
   return (
-    <div className="custom-flex" style={{ flexDirection: "row", maxWidth: "900px" }}>
-      <div className="theme-card" style={{ flex: 1, marginRight: "1rem" }}>
+    <div className="custom-flex">
+      <div className="theme-card">
         <div className="theme-card-body">
-          <h2 className="theme-card-title">Skills</h2>
+          <h2 className="theme-card-title">{props.skillsTitle}</h2>
           <ul className="theme-card-list">
-            <li><strong>Frontend:</strong> React, Dart</li>
-            <li><strong>Backend:</strong> ???, ???, ???</li>
-            <li><strong>Tools:</strong> Git, Figma</li>
-            <li><strong>Soft Skills:</strong> Teamwork, Communication</li>
+            {props.skills.map(function(item, idx) {
+              return (
+                <li key={idx}>
+                  <strong>{item.label}:</strong> {item.list}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
-      <div className="theme-card" style={{ flex: 1, marginLeft: "1rem" }}>
+      <div className="theme-card">
         <div className="theme-card-body">
-          <h2 className="theme-card-title">About Me</h2>
-          <p>
-            A curious and critical thinker who embraces challenges and takes risks to grow. 
-            Staying active in sports has shaped my discipline, resilience, and teamwork—qualities I bring into my journey as a web developer.
-          </p>
+          <h2 className="theme-card-title">{props.aboutMeTitle}</h2>
+          <p>{props.aboutMe}</p>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Card
+export default Card;

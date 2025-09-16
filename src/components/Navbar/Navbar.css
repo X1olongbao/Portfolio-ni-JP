@@ -39,12 +39,12 @@
 .nav-link {
   color: #ffffff;
   font-weight: 500;
-  font-size: 1.1rem;
-  cursor: pointer;
+  font-size: 1.4rem;
+  cursor: default;
   white-space: nowrap;
   transition: color 0.3s ease;
   position: relative;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 .nav-link::after {
@@ -55,7 +55,7 @@
   bottom: -4px;
   width: 0;
   height: 2px;
-  background: #fff;
+  background: #ffffff;
   transition: width 0.3s cubic-bezier(.4,0,.2,1), left 0.3s cubic-bezier(.4,0,.2,1);
   transform: translateX(-50%);
 }
