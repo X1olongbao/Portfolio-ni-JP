@@ -71,5 +71,3 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
-/* Color scheme media rules are managed via CSS variables and .theme-dark class */

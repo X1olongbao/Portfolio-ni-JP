@@ -1,8 +1,8 @@
 import './App.css'
-import About from './components/About/about.jsx'
-import Contacts from './components/Contacts/contacts.jsx'
-import Footer from './components/Footer/footer.jsx'
-import Navbar from './components/Navbar/navbar.jsx'
+import About from './components/About/About.jsx'
+import Contacts from './components/Contacts/Contacts.jsx'
+import Footer from './components/Footer/Footer.jsx'
+import Navbar from './components/Navbar/Navbar.jsx'
 
 function App() {
 
@@ -30,7 +30,6 @@ function App() {
           
         </section>
         
-        {/* Move About directly after Home so it's seen next when scrolling */}
         <About />
 
         <section className="skills-section" id="experience">

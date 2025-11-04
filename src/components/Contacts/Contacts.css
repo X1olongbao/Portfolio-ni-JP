@@ -1,9 +1,9 @@
 .contact-section {
-  padding: 6rem 0 10rem; /* add extra bottom space so footer doesn't peek */
+  padding: 6rem 0 10rem;
   background-color: var(--background-color);
   position: relative;
   overflow: hidden;
-  scroll-margin-top: calc(var(--navbar-height) + 24px); /* align anchor below fixed navbar */
+  scroll-margin-top: calc(var(--navbar-height) + 24px);
 }
 
 .contact-section::before {

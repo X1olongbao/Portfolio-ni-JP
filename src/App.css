@@ -381,7 +381,6 @@ body {
   color: var(--primary-color);
 }
 
-/* Responsive Styles */
 @media (max-width: 768px) {
   .hero-name {
     font-size: 3.5rem;

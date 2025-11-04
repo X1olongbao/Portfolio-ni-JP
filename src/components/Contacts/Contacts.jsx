@@ -8,7 +8,7 @@ emailjs.init("rRzgiW6dfQ1EVUKr6");
 // Configure EmailJS to use your service
 const SERVICE_ID = 'service_30sl549';
 const TEMPLATE_ID = 'template_1fdtnak';
-const PUBLIC_KEY = 'rRzgiW6dfQ1EVUKr6';
+const PUBLIC_KEY = 'PqRWC7QjlXrrkQx54';
 
 function Contacts() {
   const form = useRef();
