@@ -4,12 +4,6 @@ import { useState, useEffect } from 'react';
 function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof document !== 'undefined') {
-      return document.documentElement.classList.contains('theme-dark');
-    }
-    return false;
-  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,13 +20,6 @@ function Navbar() {
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
-  };
-
-  const toggleTheme = () => {
-    const nextIsDark = !document.documentElement.classList.contains('theme-dark');
-    document.documentElement.classList.toggle('theme-dark', nextIsDark);
-    localStorage.setItem('theme', nextIsDark ? 'dark' : 'light');
-    setIsDark(nextIsDark);
   };
 
   return (
@@ -67,15 +54,6 @@ function Navbar() {
               <span>Hire Me</span>
               <i className="fas fa-arrow-right"></i>
             </a>
-          </li>
-          <li className="nav-item">
-            <button
-              className="theme-button"
-              aria-label="Toggle theme"
-              onClick={() => { toggleTheme(); setMobileMenuOpen(false); }}
-            >
-              <i className={`fas ${isDark ? 'fa-sun' : 'fa-moon'}`}></i>
-            </button>
           </li>
         </ul>
       </div>

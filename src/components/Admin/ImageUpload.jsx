@@ -45,9 +45,11 @@ function ImageUpload({ currentImage, onImageChange }) {
       
       <div className="image-upload-area">
         {preview ? (
-          <div className="image-preview-container">
-            <img src={preview} alt="Profile preview" className="image-preview" />
-            <div className="image-overlay-actions">
+          <div className="image-preview-wrapper">
+            <div className="image-preview-container">
+              <img src={preview} alt="Profile preview" className="image-preview" />
+            </div>
+            <div className="image-actions">
               <label className="change-image-button">
                 <i className="fas fa-camera"></i>
                 Change Photo
