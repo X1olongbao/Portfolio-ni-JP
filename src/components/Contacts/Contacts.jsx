@@ -2,15 +2,15 @@ import "./contacts.css";
 import { useState, useEffect, useRef } from 'react';
 import emailjs from '@emailjs/browser';
 
-// Initialize EmailJS with your public key
+
 emailjs.init("rRzgiW6dfQ1EVUKr6");
 
-// Configure EmailJS to use your service
+
 const SERVICE_ID = 'service_30sl549';
 const TEMPLATE_ID = 'template_1fdtnak';
 const PUBLIC_KEY = 'PqRWC7QjlXrrkQx54';
 
-function Contacts() {
+function Contacts({ portfolioData }) {
   const form = useRef();
   const [formData, setFormData] = useState({
     name: '',
@@ -39,7 +39,7 @@ function Contacts() {
     });
     
     try {
-      // Send email using EmailJS with proper error handling
+      
       const result = await emailjs.sendForm(
         SERVICE_ID,
         TEMPLATE_ID,
@@ -47,17 +47,17 @@ function Contacts() {
         PUBLIC_KEY
       );
       
-      // Success
+      
       setStatus({
         submitted: true,
         submitting: false,
         info: { error: false, msg: 'Message sent successfully!' }
       });
       
-      // Reset form
+      
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
-      // Error
+      
       console.error('Error sending email:', error);
       setStatus({
         submitted: false,
@@ -104,15 +104,26 @@ function Contacts() {
               </div>
               
               <div className="social-links-large">
-                <a href="#" className="social-link-large" aria-label="GitHub">
-                  <i className="fab fa-github"></i>
-                </a>
-                <a href="#" className="social-link-large" aria-label="LinkedIn">
-                  <i className="fab fa-linkedin"></i>
-                </a>
-                <a href="#" className="social-link-large" aria-label="Twitter">
-                  <i className="fab fa-twitter"></i>
-                </a>
+                {portfolioData?.socialLinks && Object.entries(portfolioData.socialLinks).map(([platform, url]) => {
+                  if (url && url !== '#' && url.trim() !== '') {
+                    const iconClass = `fa-${platform.toLowerCase()}`;
+                    const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                    
+                    return (
+                      <a 
+                        key={platform}
+                        href={url} 
+                        className="social-link-large" 
+                        aria-label={label}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <i className={`fab ${iconClass}`}></i>
+                      </a>
+                    );
+                  }
+                  return null;
+                })}
               </div>
             </div>
           </div>

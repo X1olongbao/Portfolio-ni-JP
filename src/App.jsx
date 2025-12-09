@@ -1,10 +1,41 @@
+import { useState, useEffect } from 'react'
 import './App.css'
 import About from './components/About/About.jsx'
 import Contacts from './components/Contacts/Contacts.jsx'
 import Footer from './components/Footer/Footer.jsx'
 import Navbar from './components/Navbar/Navbar.jsx'
+import Admin from './components/Admin/Admin.jsx'
+import { usePortfolioData } from './hooks/usePortfolioData'
 
 function App() {
+  const [currentHash, setCurrentHash] = useState(window.location.hash);
+  const { portfolioData, loading } = usePortfolioData();
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setCurrentHash(window.location.hash);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  if (currentHash === '#admin') {
+    return (
+      <div className="App">
+        <Admin />
+      </div>
+    );
+  }
+
+  if (loading || !portfolioData) {
+    return <div className="App" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+      <div style={{ textAlign: 'center' }}>
+        <i className="fas fa-spinner fa-spin" style={{ fontSize: '3rem', color: 'var(--primary-color)' }}></i>
+        <p style={{ marginTop: '1rem', color: 'var(--light-text)' }}>Loading...</p>
+      </div>
+    </div>;
+  }
 
   return (
     <div className="App">
@@ -14,9 +45,9 @@ function App() {
         <section className="hero-section" id="home">
           <div className="hero-content">
             <div className="hero-title">
-              <span className="hero-greeting">Hello, I'm</span>
-              <h1 className="hero-name">John Paul Cruz</h1>
-              <h2 className="hero-profession">Freelance Virtual Assistant</h2>
+              <span className="hero-greeting">{portfolioData.greeting}</span>
+              <h1 className="hero-name">{portfolioData.name}</h1>
+              <h2 className="hero-profession">{portfolioData.profession}</h2>
             </div>
             <div className="hero-cta">
               <a href="#contact" className="primary-button">
@@ -30,7 +61,7 @@ function App() {
           
         </section>
         
-        <About />
+        <About portfolioData={portfolioData} />
 
         <section className="skills-section" id="experience">
           <div className="container">
@@ -41,55 +72,31 @@ function App() {
             </div>
             
             <div className="skills-grid">
-              <div className="skill-card">
-                <div className="skill-icon">
-                  <i className="fas fa-video"></i>
+              {portfolioData.experiences.map((exp, index) => (
+                <div key={index} className="skill-card">
+                  <div className="skill-icon">
+                    <i className={`fas ${exp.icon}`}></i>
+                  </div>
+                  <h3 className="skill-title">{exp.title}</h3>
+                  <p className="skill-description">
+                    {exp.description}
+                  </p>
+                  <ul className="skill-details">
+                    {exp.details.map((detail, detailIndex) => (
+                      <li key={detailIndex}>
+                        <i className="fas fa-check-circle"></i> {detail}
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className="skill-title">Video Editing</h3>
-                <p className="skill-description">
-                  2+ years of experience creating engaging video content with professional editing tools.
-                </p>
-                <ul className="skill-details">
-                  <li><i className="fas fa-check-circle"></i> Content creation for social media</li>
-                  <li><i className="fas fa-check-circle"></i> Color grading and visual effects</li>
-                  <li><i className="fas fa-check-circle"></i> Audio enhancement and synchronization</li>
-                </ul>
-              </div>
-              
-              <div className="skill-card">
-                <div className="skill-icon">
-                  <i className="fas fa-database"></i>
-                </div>
-                <h3 className="skill-title">Data Entry</h3>
-                <p className="skill-description">
-                  1 year of experience in accurate and efficient data management and organization.
-                </p>
-                <ul className="skill-details">
-                  <li><i className="fas fa-check-circle"></i> Spreadsheet management</li>
-                </ul>
-              </div>
-              
-              <div className="skill-card">
-                <div className="skill-icon">
-                  <i className="fas fa-laptop-code"></i>
-                </div>
-                <h3 className="skill-title">Web Development</h3>
-                <p className="skill-description">
-                  Learning modern web technologies to expand my professional skillset.
-                </p>
-                <ul className="skill-details">
-                  <li><i className="fas fa-check-circle"></i> HTML, CSS, and JavaScript</li>
-                  <li><i className="fas fa-check-circle"></i> React framework</li>
-                  <li><i className="fas fa-check-circle"></i> Responsive design principles</li>
-                </ul>
-              </div>
+              ))}
             </div>
           </div>
         </section>
-        <Contacts />
+        <Contacts portfolioData={portfolioData} />
       </main>
       
-      <Footer />
+      <Footer portfolioData={portfolioData} />
     </div>
   )
 }

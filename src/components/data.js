@@ -2,8 +2,8 @@ export const cardData = {
   skillsTitle: "Skills",
   aboutMeTitle: "Who I Am",
   skills: [
-    { label: "Frontend", list: "React, ???" },
-    { label: "Backend", list: "???, ???, ???" },
+    { label: "Frontend", list: "React, JavaScript" },
+    { label: "Backend", list: "Supabase" },
     { label: "Tools", list: "Git, Figma" },
     { label: "Soft Skills", list: "Teamwork, Communication" }
   ],

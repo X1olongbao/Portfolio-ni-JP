@@ -1,6 +1,6 @@
 import "./footer.css";
 
-function Footer() {
+function Footer({ portfolioData }) {
   const currentYear = new Date().getFullYear();
   
   return (
@@ -17,17 +17,27 @@ function Footer() {
           <a href="#contact">Contact</a>
         </div>
         <div className="footer-social">
-          <a href="#" aria-label="GitHub">
-            <i className="fab fa-github"></i>
-          </a>
-          <a href="#" aria-label="LinkedIn">
-            <i className="fab fa-linkedin"></i>
-          </a>
-          <a href="#" aria-label="Twitter">
-            <i className="fab fa-twitter"></i>
-          </a>
+          {portfolioData?.socialLinks && Object.entries(portfolioData.socialLinks).map(([platform, url]) => {
+            if (url && url !== '#' && url.trim() !== '') {
+              const iconClass = `fa-${platform.toLowerCase()}`;
+              const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+              
+              return (
+                <a 
+                  key={platform}
+                  href={url} 
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i className={`fab ${iconClass}`}></i>
+                </a>
+              );
+            }
+            return null;
+          })}
         </div>
-        <p className="copyright">&copy; {currentYear} John Paul Cruz. All rights reserved.</p>
+        <p className="copyright">&copy; {currentYear} {portfolioData?.name || 'John Paul Cruz'}. All rights reserved.</p>
       </div>
     </footer>
   );

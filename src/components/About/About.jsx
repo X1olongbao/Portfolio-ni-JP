@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 import { cardData } from '../data';
 import { useState, useEffect } from 'react';
 
-function About() {
+function About({ portfolioData }) {
   const [isVisible, setIsVisible] = useState(false);
   
   useEffect(() => {
@@ -22,22 +22,34 @@ function About() {
 
         <div className="about-text-image-container">
           <div className="profile-image-container">
-            <img src={myPhoto} alt="Profile" className="about-image" />
+            <img src={portfolioData.profileImage || myPhoto} alt="Profile" className="about-image" />
             <div className="image-overlay"></div>
           </div>
           <div className="about-text">
-            <h2 className="greeting">Hello, I'm <span className="highlight">John Paul Cruz</span></h2>
-            <p className="tagline">Frontend developer and freelance virtual assistant passionate about creating beautiful, responsive websites with React and modern technologies, while providing efficient virtual support to help businesses and individuals succeed..</p>
+            <h2 className="greeting">{portfolioData.greeting} <span className="highlight">{portfolioData.name}</span></h2>
+            <p className="tagline">{portfolioData.tagline}</p>
             <div className="social-links">
-              <a href="#" className="social-link" aria-label="GitHub">
-                <i className="fab fa-github"></i>
-              </a>
-              <a href="#" className="social-link" aria-label="LinkedIn">
-                <i className="fab fa-linkedin"></i>
-              </a>
-              <a href="#" className="social-link" aria-label="Twitter">
-                <i className="fab fa-twitter"></i>
-              </a>
+              {portfolioData.socialLinks && Object.entries(portfolioData.socialLinks).map(([platform, url]) => {
+                // Only show if URL exists and is not just "#"
+                if (url && url !== '#' && url.trim() !== '') {
+                  const iconClass = `fa-${platform.toLowerCase()}`;
+                  const label = platform.charAt(0).toUpperCase() + platform.slice(1);
+                  
+                  return (
+                    <a 
+                      key={platform} 
+                      href={url} 
+                      className="social-link" 
+                      aria-label={label}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <i className={`fab ${iconClass}`}></i>
+                    </a>
+                  );
+                }
+                return null;
+              })}
             </div>
           </div>
         </div>
@@ -45,8 +57,8 @@ function About() {
         <Card 
           skillsTitle={cardData.skillsTitle}
           aboutMeTitle={cardData.aboutMeTitle}
-          skills={cardData.skills}
-          aboutMe={cardData.aboutMe}
+          skills={portfolioData.skills}
+          aboutMe={portfolioData.aboutMe}
         />
       </div>
     </section>
