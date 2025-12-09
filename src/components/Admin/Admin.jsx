@@ -26,6 +26,70 @@ function Admin() {
   useEffect(() => {
     const loadData = async () => {
       try {
+        // Check if Supabase is configured
+        if (!supabase) {
+          console.log('Supabase not configured in Admin, using fallback data');
+          // Use fallback data
+          const fallbackData = {
+            name: "John Paul Cruz",
+            profession: "Web Developer & Virtual Assistant",
+            greeting: "Hi, I'm",
+            tagline: "Building digital experiences with passion",
+            aboutMe: "A curious and critical thinker who embraces challenges and takes risks to grow. Staying active in sports has shaped my discipline, resilience, and teamwork—qualities I bring into my journey as a web developer and freelance virtual assistant.",
+            skills: [
+              { label: "Frontend", list: "React, JavaScript, HTML, CSS" },
+              { label: "Backend", list: "Supabase, Node.js" },
+              { label: "Tools", list: "Git, Figma, VS Code" },
+              { label: "Soft Skills", list: "Teamwork, Communication, Problem Solving" }
+            ],
+            experiences: [
+              {
+                icon: "fa-code",
+                title: "Web Development",
+                description: "Creating responsive and modern web applications",
+                details: ["React & JavaScript", "Responsive Design", "Modern UI/UX"]
+              },
+              {
+                icon: "fa-headset",
+                title: "Virtual Assistant",
+                description: "Providing professional administrative support",
+                details: ["Task Management", "Communication", "Organization"]
+              },
+              {
+                icon: "fa-database",
+                title: "Backend Integration",
+                description: "Working with databases and APIs",
+                details: ["Supabase", "REST APIs", "Data Management"]
+              }
+            ],
+            socialLinks: {
+              github: "https://github.com",
+              linkedin: "https://linkedin.com",
+              email: "mailto:contact@example.com"
+            }
+          };
+          
+          setPortfolioData(fallbackData);
+          setProfileImage(null);
+          
+          // Convert social_links object to array for the new UI
+          const linksArray = [];
+          if (fallbackData.socialLinks) {
+            Object.entries(fallbackData.socialLinks).forEach(([key, url]) => {
+              if (url && url !== '#') {
+                linksArray.push({
+                  platform: key.charAt(0).toUpperCase() + key.slice(1),
+                  icon: `fa-${key}`,
+                  url: url
+                });
+              }
+            });
+          }
+          setSocialLinks(linksArray);
+          setLoading(false);
+          return;
+        }
+
         const { data, error } = await supabase
           .from('portfolio_data')
           .select('*')
@@ -34,6 +98,7 @@ function Admin() {
 
         if (error) {
           console.error('Error loading data:', error);
+          setLoading(false);
           return;
         }
 
@@ -100,6 +165,13 @@ function Admin() {
 
   const handleSave = async () => {
     try {
+      if (!supabase) {
+        console.log('Supabase not configured - changes saved locally only');
+        setSaveMessage('⚠️ Supabase not configured. Changes are not persisted.');
+        setTimeout(() => setSaveMessage(''), 4000);
+        return;
+      }
+
       // Convert socialLinks array back to object format for database
       const socialLinksObject = {};
       socialLinks.forEach(link => {

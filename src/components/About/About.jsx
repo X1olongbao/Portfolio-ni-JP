@@ -1,4 +1,4 @@
-import "./about.css";
+import "./About.css";
 import myPhoto from "../../assets/hahaha.png"; 
 import Card from "../Card/Card";
 import { cardData } from '../data';
