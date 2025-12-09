@@ -98,12 +98,12 @@
 .login-header h2 {
   font-size: 2rem;
   font-weight: 700;
-  color: var(--text-color);
+  color: #1f2937;
   margin-bottom: 0.5rem;
 }
 
 .login-header p {
-  color: var(--light-text);
+  color: #6b7280;
   font-size: 1rem;
 }
 
@@ -121,7 +121,7 @@
 
 .form-group label {
   font-weight: 600;
-  color: var(--text-color);
+  color: #1f2937;
   font-size: 0.95rem;
   display: flex;
   align-items: center;
